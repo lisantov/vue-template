@@ -6,7 +6,7 @@ import { AppHeader } from '@/widgets'
   <div class="flex min-h-screen flex-col">
     <app-header />
 
-    <main class="flex-1">
+    <main class="flex-1 px-20 py-10">
       <slot />
     </main>
   </div>
