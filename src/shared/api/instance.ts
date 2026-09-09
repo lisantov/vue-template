@@ -1,5 +1,6 @@
 import axios, { type AxiosInstance, type InternalAxiosRequestConfig } from 'axios'
 import { ApiStatus } from './consts'
+import { push } from 'notivue'
 
 export const api: AxiosInstance = axios.create({
   baseURL: import.meta.env.VITE_API_URL,
@@ -26,6 +27,7 @@ api.interceptors.response.use(
       localStorage.removeItem('token')
     }
 
+    push.error(error.response?.message ?? 'Непредвиденная ошибка')
     return Promise.reject(error)
   },
 )
