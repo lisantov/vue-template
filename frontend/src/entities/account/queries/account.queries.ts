@@ -1,13 +1,5 @@
-import {
-  defineQuery,
-  defineMutation,
-  useQuery,
-  useMutation,
-  useQueryCache,
-} from '@pinia/colada'
-import { useRouter } from 'vue-router'
+import { defineQuery, defineMutation, useQuery, useMutation, useQueryCache } from '@pinia/colada'
 import { useAuth } from '@/shared/composables'
-import { Routes } from '@/shared/lib'
 import { accountService, ACCOUNT_QUERY_KEYS } from '@/entities'
 
 export const useProfile = defineQuery(() => {
@@ -23,14 +15,12 @@ export const useProfile = defineQuery(() => {
 export const useLogin = defineMutation(() => {
   const { setToken } = useAuth()
   const queryCache = useQueryCache()
-  const router = useRouter()
 
   return useMutation({
     mutation: accountService.login,
     onSuccess(data) {
       setToken(data.token)
-      queryCache.invalidateQueries({ key: ACCOUNT_QUERY_KEYS.all })
-      router.push(Routes.home)
+      queryCache.invalidateQueries({ key: ACCOUNT_QUERY_KEYS.all() })
     },
   })
 })
@@ -38,14 +28,12 @@ export const useLogin = defineMutation(() => {
 export const useRegister = defineMutation(() => {
   const { setToken } = useAuth()
   const queryCache = useQueryCache()
-  const router = useRouter()
 
   return useMutation({
     mutation: accountService.register,
     onSuccess(data) {
       setToken(data.token)
-      queryCache.invalidateQueries({ key: ACCOUNT_QUERY_KEYS.all })
-      router.push(Routes.home)
+      queryCache.invalidateQueries({ key: ACCOUNT_QUERY_KEYS.all() })
     },
   })
 })
@@ -53,15 +41,13 @@ export const useRegister = defineMutation(() => {
 export const useLogout = defineMutation(() => {
   const { clearToken } = useAuth()
   const queryCache = useQueryCache()
-  const router = useRouter()
 
   return useMutation({
     mutation: accountService.logout,
     onSuccess() {
       clearToken()
       queryCache.setQueryData(ACCOUNT_QUERY_KEYS.profile(), undefined)
-      queryCache.invalidateQueries({ key: ACCOUNT_QUERY_KEYS.all })
-      router.push(Routes.login)
+      queryCache.invalidateQueries({ key: ACCOUNT_QUERY_KEYS.all() })
     },
   })
 })

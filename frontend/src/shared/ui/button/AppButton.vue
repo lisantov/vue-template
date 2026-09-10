@@ -18,7 +18,11 @@ withDefaults(defineProps<Props>(), {
 </script>
 
 <template>
-  <button :type="type" :disabled="disabled" :class="buttonVariants({ variant, size, fullWidth })">
+  <button
+    :type="type"
+    :disabled="disabled"
+    :class="buttonVariants({ variant, size, fullWidth })"
+  >
     <slot />
   </button>
 </template>

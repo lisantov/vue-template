@@ -35,5 +35,5 @@ defineEmits<{
     :disabled="disabled"
     :class="inputVariants({ size, error, disabled })"
     @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
-  />
+  >
 </template>

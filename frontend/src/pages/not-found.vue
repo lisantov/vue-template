@@ -5,16 +5,17 @@
     </h1>
     <div class="flex flex-col gap-4">
       <span class="text-2xl">Кажется, вы заблудились</span>
-      <app-button @click.stop="router.push('/')">
-        На главную
-      </app-button>
+      <router-link :to="Routes.home">
+        <app-button>
+          На главную
+        </app-button>
+      </router-link>
     </div>
   </div>
 </template>
 
 <script lang="ts" setup>
+import { Routes } from '@/shared';
 import { AppButton } from '@/shared/ui';
-import { useRouter } from 'vue-router';
-
-const router = useRouter()
+import { RouterLink } from 'vue-router';
 </script>

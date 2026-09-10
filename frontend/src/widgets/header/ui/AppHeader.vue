@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { RouterLink } from 'vue-router'
+import { RouterLink, useRouter } from 'vue-router'
 import { AppButton } from '@/shared/ui'
 import { Routes } from '@/shared/lib'
 import { useAuth } from '@/shared/composables'
@@ -8,6 +8,12 @@ import { useProfile, useLogout } from '@/entities/account'
 const { isAuth } = useAuth()
 const { data: profile } = useProfile()
 const { mutateAsync: logout } = useLogout()
+const router = useRouter()
+
+const handleLogout = async () => {
+  await logout()
+  router.push(Routes.login)
+}
 </script>
 
 <template>
@@ -31,7 +37,7 @@ const { mutateAsync: logout } = useLogout()
           <app-button
             variant="ghost"
             size="sm"
-            @click="logout"
+            @click="handleLogout"
           >
             Выйти
           </app-button>
